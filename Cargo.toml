@@ -1,0 +1,29 @@
+[package]
+name = "iot_webhook_server"
+version = "0.1.0"
+authors = ["Benjamin Zanger <benjamin.zanger@gmx.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-rt = "1.0.0"
+actix = "0.9.0"
+actix-identity = "*"
+actix-web = "2.0.0"
+actix-web-actors = "2.0.0"
+actix-files = "0.2.1"
+tera = "1.0"
+diesel = { version = "^1.1.0", features = ["sqlite", "r2d2", "chrono"] }
+rand = "0.6"
+bytes = "0.5.3"
+byteorder = "1.1"
+futures = "0.3.1"
+env_logger = "0.6"
+serde = "1.0"
+serde_json = "1.0"
+dotenv = "0.10"
+blake2 = "*"
+sha3 = "*"
+chrono = "0.4"
+uuid = { version = "0.8", features = ["serde", "v4"] }

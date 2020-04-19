@@ -1,0 +1,57 @@
+{% extends "basis.html" %}
+
+{% block content %}
+
+<h2>Profile Settings!</h2>
+
+<h3>Device list</h3>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Device Name</th>
+        <th>Registration ID</th>
+        <th>Registration date</th>
+        <th>online</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%  for device in devices %}
+      {% if device.online %}
+          <tr class="success">
+      {% else %}
+          <tr>
+      {% endif %}
+        <td>{{ device.name }}</td>
+        <td>{{ device.registration_id }}</td>
+        <td>{{ device.registration_date }}</td>
+        <td>{{ device.online }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<h3>Add a device</h3>
+<form action="/api/add_device" method="post">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Device name</label>
+    <input name="name" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter name">
+    <small id="emailHelp" class="form-text text-muted">This name has to be unique for your devices.</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<h3>Test a Webhook</h3>
+<form action="/api/webhook" method="post">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Device registration ID</label>
+    <input name="id" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter id">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Message to Device</label>
+    <input name="message" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter message">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{% endblock %}

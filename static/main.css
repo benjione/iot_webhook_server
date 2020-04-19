@@ -1,0 +1,116 @@
+html,body{
+    height:100%;
+    width: 100%;
+    margin:0;
+    padding:0;
+    /*background-color: #c6ffb3;*/
+    }
+div{
+    /*border: 2px solid black;*/
+    }
+    
+#table{
+    background-color:#ccffff;
+    width: 100%;
+    }
+.statusbar{
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 30px;
+}
+
+.post_div{
+    width: 400px;
+    height: 350px;
+    border: 2px solid blue;
+    margin: 10px;
+    padding: auto;
+    float: left;
+    }
+
+.post_div_video{
+    width: 400px;
+    height: 340px;
+    border: 2px solid blue;
+    margin: 10px;
+    padding: auto;
+    float: left;
+}
+
+.post_div_video_full{
+    width: 800px;
+    margin: 10px;
+    padding: auto;
+    text-align: center;
+}
+    
+.post_div_text{
+    width: 400px;
+    height: 340px;
+    border: 2px solid blue;
+    margin: 10px;
+    padding: auto;
+    float: left;
+    
+}
+
+.post_div_text_full{
+    width: 800px;
+    margin: 10px;
+    padding: auto;
+    text-align: center;
+}
+    
+.post_table{
+    width: 100%;
+    text-align: center;
+    }
+
+.table{
+    width: 100%;
+}
+
+.text{
+    background-color: white;
+    width: 350px;
+    margin: auto;
+    }
+    
+.text_full{
+    background-color: white;
+    width: 700px;
+    margin: auto;
+    }
+
+#left {
+    text-align: right;
+    
+}
+#middle{
+    text-align: center;
+    }
+#right{
+    text-align: left;
+}
+
+#content{
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+#form{
+    width: 400px;
+    margin: auto;
+    padding: auto;
+    }
+
+.error{
+    color: red;
+    }
+
+#newpost{
+    text-align: center;
+    background-color: #99ccff;
+    }
