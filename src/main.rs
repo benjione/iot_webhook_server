@@ -19,6 +19,12 @@ mod models;
 mod schema;
 pub mod server;
 
+use std::fs::File;
+use std::io::BufReader;
+
+use rustls::internal::pemfile::{certs, rsa_private_keys};
+use rustls::{NoClientAuth, ServerConfig};
+
 use models::device::Device;
 use models::user;
 type Pool = diesel::r2d2::Pool<diesel::r2d2::ConnectionManager<SqliteConnection>>;
@@ -119,8 +125,11 @@ async fn main() -> std::io::Result<()> {
 
     let server_url = std::env::var("SERVER_URL").expect("SERVER_URL");
 
+    let use_https = std::env::var("USE_HTTPS").expect("USE_HTTPS");
+
+
     // Create Http server with websocket support
-    HttpServer::new(move || {
+    let server = HttpServer::new(move || {
         let tera = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/templates/**/*")).unwrap();
         App::new()
             .wrap(IdentityService::new(
@@ -149,8 +158,22 @@ async fn main() -> std::io::Result<()> {
                 fs::Files::new("/js", "./script/"),
             )
             .default_service(web::to(error404))
-    })
-    .bind(server_url)?
-    .run()
-    .await
+    });
+
+    if use_https == "TRUE" {
+        let key_path = std::env::var("RSA_KEY").expect("RSA_KEY");
+        let certificate_path = std::env::var("CERTIFICATE").expect("CERTIFICATE");
+
+        // load ssl keys
+        let mut config = ServerConfig::new(NoClientAuth::new());
+        let cert_file = &mut BufReader::new(File::open(certificate_path).unwrap());
+        let key_file = &mut BufReader::new(File::open(key_path).unwrap());
+        let cert_chain = certs(cert_file).unwrap();
+        let mut keys = rsa_private_keys(key_file).unwrap();
+        config.set_single_cert(cert_chain, keys.remove(0)).unwrap();
+
+        return server.bind_rustls(server_url, config)?.run().await;
+    }
+
+    server.bind(server_url)?.run().await
 }

@@ -14,7 +14,7 @@ It is intended for Arduino developers who want an easy solution for home automat
 Once you have the server running, the front page will look the following:
 ![welcome page](pictures/welcome_page.png)
 
-Next, you have to create an account. I recommend to not use one of your real passwords. It is encrypted in the database, however, the server has not TLS functionality (yet). Once you created an account and logged in, there will appear a new tab, called profile. Everything you need happens here.
+Next, you have to create an account. I recommend to not use one of your real passwords. It is encrypted in the database, however, if you do not use the https functionality (which is harder to set up), your passwords are not encrypted while transferred to the server. Once you created an account and logged in, there will appear a new tab, called profile. Everything you need happens here.
 
 ![profile page](pictures/profile.png)
 
@@ -50,7 +50,14 @@ Create a SQLite database and run "database_create_tables.sql" on it, to create t
 
 ### Create environmental variables
 You need to provide the location of your database and the website URL as an environmental variable. The easiest way doing this, is by creating a ".env" file.
-The variables you need to provide are "DATABASE_URL" and "SERVER_URL".
+You can use the following template for your variables:
+```
+DATABASE_URL=<<SQL database.db>>
+SERVER_URL=<<Server URL and Port>>
+USE_HTTPS=<<TRUE or FALSE>>
+RSA_KEY=<<only needed for https, path to rsa key>>
+CERTIFICATE=<<only needed for https, path to certificate>>
+```
 
 ## DISCLAIMER
 
